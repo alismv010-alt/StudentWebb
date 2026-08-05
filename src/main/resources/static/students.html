@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Students</title>
+    <script>
+        function getStudents() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                console.log(this.responseText)
+                document.getElementById("students").innerHTML = this.responseText;
+            }
+            xhttp.open("GET", "http://localhost:9090/students", true);
+            xhttp.send();
+        }
+    </script>
+</head>
+<body>
+    <div id="students">
+        <h1>"STUDENTS"</h1>
+    </div>
+</body>
+</html>
