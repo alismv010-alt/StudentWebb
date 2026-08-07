@@ -2,15 +2,13 @@ package com.alishka.education;
 
 import com.alishka.education.Student.entity.Student;
 import com.alishka.education.Student.repo.StudentRepo;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/students")
+@CrossOrigin(origins = "*")
 public class StudentController {
     private final MyDataStudentRepo datarepo;
 

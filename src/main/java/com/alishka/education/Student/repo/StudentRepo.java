@@ -4,6 +4,7 @@ import com.alishka.education.Student.entity.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -22,25 +23,14 @@ public class StudentRepo implements IStudentRepo {
         return nativequery.getResultList();
     }
 
-    @Override
+
     public void update(Integer id) {
     }
 
-    public void update(Student obj) {
-
-    }
-
-
+    @Transactional
     public void delete(Integer id) {
-        final EntityTransaction transaction = em.getTransaction();
-        try{
-            transaction.begin();
-            final Student t = em.find(Student.class, id);
-            em.remove(t);
-            transaction.commit();
-        }catch(Exception e){
-            transaction.rollback();
-        }
+        final Student t = em.find(Student.class, id);
+        em.remove(t);
     }
 
     public void insert(Integer id) {

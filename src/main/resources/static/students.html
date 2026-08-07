@@ -6,18 +6,70 @@
     <script>
         function getStudents() {
             const xhttp = new XMLHttpRequest();
-            xhttp.onload = function() {
-                console.log(this.responseText)
-                document.getElementById("students").innerHTML = this.responseText;
+            function myfunction() {
+                var responseText=this.responseText;
+                var responseArr = JSON.parse(responseText);
+
+                var tr=document.getElementById("tbl-students-body").innerHTML;
+                var trbody="";
+                for (var i=0; i<responseArr.length; i++) {
+                    var student = responseArr[i];
+
+                    trbody += tr
+                        .replace(":id", student.ID)
+                        .replace(":name", student.name)
+                        .replace(":surname", student.surname)
+                        .replace(":age", student.age)
+                        .replace(":email", student.email)
+                        .replace(":password", student.password)
+                        .replace(":university", student.university.name);
+                }
+                document.getElementById("tbl-students-body").innerHTML=trbody;
             }
+
+
+            xhttp.onload = myfunction;
             xhttp.open("GET", "http://localhost:9090/students", true);
             xhttp.send();
         }
+        window.addEventListener('load', getStudents);
     </script>
 </head>
 <body>
-    <div id="students">
-        <h1>"STUDENTS"</h1>
+    <div>
+        <h1>Students</h1>
+        <div id="students">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Age</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>University</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tbl-students-body">
+                    <tr>
+                        <td>:id</td>
+                        <td>:name</td>
+                        <td>:surname</td>
+                        <td>:age</td>
+                        <td>:email</td>
+                        <td>:password</td>
+                        <td>:university</td>
+                        <td>
+                            <button>UPDATE</button>
+                            <button>DELETE</button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>

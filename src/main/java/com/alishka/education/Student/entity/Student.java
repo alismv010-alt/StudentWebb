@@ -16,7 +16,6 @@ public class Student {
 
     @ManyToOne(fetch=FetchType.EAGER, optional = false )
     @JoinColumn(name="University", nullable = false)
-    @JsonIgnore
     private University University;
 
     private String Password;

@@ -10,11 +10,10 @@ import java.util.List;
 public class University {
     @Id
     private Integer id;
-
     private String name;
 
     @OneToMany (mappedBy = "University", targetEntity = Student.class, cascade = CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval = true)
-
+    @JsonIgnore
     private List<Student> students;
 
     public Integer getId() {
