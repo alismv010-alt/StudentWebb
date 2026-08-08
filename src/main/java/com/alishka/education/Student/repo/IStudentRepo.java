@@ -17,7 +17,6 @@ public interface IStudentRepo {
 
     public void insert(Integer id);
 
-    public Student findByID(Integer id);
     public List<Student> getList(String name, String surname, String email, String password,
                                  String university, Integer age );
 }

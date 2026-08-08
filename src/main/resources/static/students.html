@@ -1,75 +1,122 @@
-<!DOCTYPE html>
+<!DOCTYPE>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Students</title>
-    <script>
-        function getStudents() {
-            const xhttp = new XMLHttpRequest();
-            function myfunction() {
-                var responseText=this.responseText;
-                var responseArr = JSON.parse(responseText);
+    <link href="css/index.css" rel="stylesheet" >
+    <script src="js/index.js" ></script>
 
-                var tr=document.getElementById("tbl-students-body").innerHTML;
-                var trbody="";
-                for (var i=0; i<responseArr.length; i++) {
-                    var student = responseArr[i];
-
-                    trbody += tr
-                        .replace(":id", student.ID)
-                        .replace(":name", student.name)
-                        .replace(":surname", student.surname)
-                        .replace(":age", student.age)
-                        .replace(":email", student.email)
-                        .replace(":password", student.password)
-                        .replace(":university", student.university.name);
-                }
-                document.getElementById("tbl-students-body").innerHTML=trbody;
-            }
-
-
-            xhttp.onload = myfunction;
-            xhttp.open("GET", "http://localhost:9090/students", true);
-            xhttp.send();
-        }
-        window.addEventListener('load', getStudents);
-    </script>
 </head>
 <body>
-    <div>
-        <h1>Students</h1>
-        <div id="students">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Surname</th>
-                        <th>Age</th>
-                        <th>Email</th>
-                        <th>Password</th>
-                        <th>University</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="tbl-students-body">
-                    <tr>
-                        <td>:id</td>
-                        <td>:name</td>
-                        <td>:surname</td>
-                        <td>:age</td>
-                        <td>:email</td>
-                        <td>:password</td>
-                        <td>:university</td>
-                        <td>
-                            <button>UPDATE</button>
-                            <button>DELETE</button>
-                        </td>
-                    </tr>
-
-                </tbody>
-            </table>
+<h1>Students</h1>
+<form class="container">
+    <div class="row">
+        <div class="col-auto">
+            <label for="name" class="form-label">name</label>
+            <input type="text" class="form-control" name="name" id="name" placeholder="name" value="">
+        </div>
+        <div class="col-auto">
+            <label for="surname" class="form-label">surname</label>
+            <input type="text" class="form-control" name="surname" id="surname" placeholder="surname" value="">
+        </div>
+        <div class="col-auto">
+            <label for="age" class="form-label">age</label>
+            <input type="text" class="form-control" name="age" id="age" placeholder="age" value="">
+        </div>
+        <div class="col-auto">
+            <label for="email" class="form-label">email</label>
+            <input type="text" class="form-control" name="email" id="email" placeholder="email" value="">
+        </div>
+        <div class="col-auto">
+            <label for="surname" class="form-label">university</label>
+            <select class="form-select" name="university">
+                <option value="BDU" >BDU</option>
+                <option value="AzTU" >AzTU</option>
+            </select>
         </div>
     </div>
+    <div class="row">
+        <div class="col-1">
+            <button type="submit" class="btn btn-primary mt-3">Search</button>
+        </div>
+        <div class="col-1">
+            <a type="submit" class="btn btn-primary mt-3" href="insert.jsp">Insert</a>
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>University</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody id="tbl-students-body">
+
+    </tbody>
+</table>
+
+<table style="display: none">
+    <tbody id="tbl-students-body-tr">
+    <tr>
+        <td>
+            :id
+        </td>
+        <td>
+            :name
+        </td>
+        <td>
+            :surname
+        </td>
+        <td>
+            :age
+        </td>
+        <td>
+            :email
+        </td>
+        <td>
+            :password
+        </td>
+        <td>
+            :university
+        </td>
+        <td>
+            <button onclick="select(:id)" class="btn btn-danger" data-toggle="modal" data-target="#modalStudentsDelete">Delete</button>
+            <button onclick="select(:id)" class="btn btn-info">Update</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="modalStudentsDelete" tabindex="-1" role="dialog" aria-labelledby="studentDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="studentDeleteModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure to delete?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" onclick="deleteStudent(selectedId)" data-dismiss="modal">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
 </html>

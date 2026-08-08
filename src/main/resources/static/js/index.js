@@ -1,3 +1,7 @@
+var selectedId=0;
+function select(id) {
+    selectedId=id;
+}
 function getStudents() {
     const xhttp = new XMLHttpRequest();
 
@@ -9,15 +13,15 @@ function getStudents() {
         var trbody = "";
         for (var i = 0; i < responseArr.length; i++) {
             var student = responseArr[i];
-
+            console.log(student);
             trbody += tr
                 .replaceAll(":id", student.ID)
-                .replace(":name", student.name)
-                .replace(":surname", student.surname)
-                .replace(":age", student.age)
-                .replace(":email", student.email)
-                .replace(":password", student.password)
-                .replace(":university", student.university.name);
+                .replace(":name", student.Name)
+                .replace(":surname", student.Surname)
+                .replace(":age", student.Age)
+                .replace(":email", student.Email)
+                .replace(":password", student.Password)
+                .replace(":university", student.University.name);
         }
         document.getElementById("tbl-students-body").innerHTML = trbody;
     }
@@ -27,20 +31,17 @@ function getStudents() {
     xhttp.open("GET", "http://localhost:9090/education/students", true);
     xhttp.send();
 }
-var selectedId;
 
-function select(id) {
-    selectedId=id;
-}
+
 
 function deleteStudent(id) {
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
-        if (xhttp.readyState==4 && xhttp.status== "200") {
+        if (xhttp.status >= 200 && xhttp.status < 300) {
             getStudents();
         }
     }
-    xhttp.open("DELETE", "http://localhost:9090/education/students", true);
-    xhtpp.send();
+    xhttp.open("DELETE", "http://localhost:9090/education/students?id=" + id, true);
+    xhttp.send();
 }
 window.addEventListener('load', getStudents);

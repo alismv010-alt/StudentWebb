@@ -37,11 +37,13 @@ public class StudentRepo implements IStudentRepo {
 
     }
 
-    public Student findByID(Integer id) {
-        return null;
-    }
     public List<Student> getList(String name, String surname, String email, String password,
-                                 String university, Integer age ) {
+                                 Integer university_id, Integer age ) {
+
+
+
+
+
         return null;
     }
 }

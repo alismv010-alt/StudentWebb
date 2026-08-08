@@ -11,9 +11,11 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class StudentController {
     private final MyDataStudentRepo datarepo;
+    private final StudentRepo studentRepo;
 
-    public StudentController (final MyDataStudentRepo datarepo ) {
+    public StudentController (final MyDataStudentRepo datarepo, StudentRepo studentRepo) {
         this.datarepo=datarepo;
+        this.studentRepo = studentRepo;
     }
     @GetMapping
     public List<Student> getList () {
@@ -23,5 +25,10 @@ public class StudentController {
     @PostMapping
     public void save (Student student) {
                 datarepo.save(student);
+    }
+
+    @DeleteMapping
+    public void delete (@RequestParam Integer id) {
+        datarepo.deleteById(id);
     }
 }
