@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 @Table(name="student")
 public class Student {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID;
 
     private String Name;
@@ -15,7 +16,6 @@ public class Student {
     private String Surname;
 
     @ManyToOne(fetch=FetchType.EAGER, optional = false )
-    @JoinColumn(name="University", nullable = false)
     private University University;
 
     private String Password;
