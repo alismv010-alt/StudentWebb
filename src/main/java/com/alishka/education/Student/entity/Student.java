@@ -20,7 +20,7 @@ public class Student {
 
     private String Password;
 
-    private int Age;
+    private Integer Age;
 
     private String Email;
 
@@ -69,12 +69,12 @@ public class Student {
         return this;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return Age;
     }
 
-    public Student setAge(int Age) {
-        Age = Age;
+    public Student setAge(Integer Age) {
+        this.Age = Age;
         return this;
     }
 

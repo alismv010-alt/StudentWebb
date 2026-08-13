@@ -63,7 +63,7 @@ public class StudentRepo implements IStudentRepo {
             predicates.add(cb.like(root.get("Password"),"%" + password + "%" ));
         }
         if (age!=null && age!=0) {
-            predicates.add(cb.equal(root.get("Age"), age));
+            predicates.add(cb.equal(root.get("Age"), age)); 
         }
         if (university_id!=null && university_id!=0) {
             predicates.add(cb.equal(root.get("University").get("id"), university_id ));

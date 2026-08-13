@@ -1,11 +1,10 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Students</title>
-    <link href="css/index.css" rel="stylesheet" >
-    <script src="js/index.js" ></script>
-
+    <link href="css/index.css" rel="stylesheet">
+    <script src="js/index.js"></script>
 </head>
 <body>
 <h1>Students</h1>
@@ -28,11 +27,7 @@
             <input type="text" class="form-control" name="email" id="email" placeholder="email" value="">
         </div>
         <div class="col-auto">
-            <label for="password" class="form-label">password</label>
-            <input type="text" class="form-control" name="password" id="password" placeholder="password" value="">
-        </div>
-        <div class="col-auto">
-            <label for="surname" class="form-label">university</label>
+            <label for="university_id" class="form-label">university</label>
             <select class="form-select" name="university" id="university_id">
                 <!--filled by backend-->
             </select>
@@ -43,7 +38,7 @@
             <button type="button" class="btn btn-primary" onclick="getStudents()">Search</button>
         </div>
         <div class="col-1">
-            <a type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#modalStudentsInsert">Insert</a>
+            <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#modalStudentsInsert">Insert</button>
         </div>
     </div>
 </div>
@@ -56,7 +51,6 @@
         <th>Surname</th>
         <th>Age</th>
         <th>Email</th>
-        <th>Password</th>
         <th>University</th>
         <th>Actions</th>
     </tr>
@@ -85,20 +79,19 @@
             :email
         </td>
         <td>
-            :password
-        </td>
-        <td>
             :university
         </td>
         <td>
-            <button onclick="select(:id)" class="btn btn-danger" data-toggle="modal" data-target="#modalStudentsDelete">Delete</button>
-            <button onclick="select(:id)" class="btn btn-info" data-toggle="modal" data-target="#modalStudentsInsert">Update</button>
+            <button onclick="select(:id)" class="btn btn-danger" data-toggle="modal"
+                    data-target="#modalStudentsDelete">Delete</button>
+            <button onclick="selectForUpdate(:index)" class="btn btn-info"
+                    data-toggle="modal" data-target="#modalStudentsUpdate">Update</button>
         </td>
     </tr>
     </tbody>
 </table>
 
-<!-- Modal -->
+<!-- Delete Modal -->
 <div class="modal fade" id="modalStudentsDelete" tabindex="-1" role="dialog" aria-labelledby="studentDeleteModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -118,9 +111,58 @@
         </div>
     </div>
 </div>
-<!-- Modal -->
+
+<!-- Update Modal -->
+<div class="modal fade" id="modalStudentsUpdate" tabindex="-1" role="dialog" aria-labelledby="modalStudentsUpdateLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalStudentsUpdateLabel">Update Student</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row col-5">
+                        <label for="update_name" class="form-label">name</label>
+                        <input type="text" class="form-control" name="Name" id="update_name" placeholder="name">
+                    </div>
+
+                    <div class="row col-5">
+                        <label for="update_surname" class="form-label">surname</label>
+                        <input type="text" class="form-control" name="Surname" id="update_surname" placeholder="surname">
+                    </div>
+
+                    <div class="row col-5">
+                        <label for="update_age" class="form-label">age</label>
+                        <input type="text" class="form-control" name="Age" id="update_age" placeholder="age">
+                    </div>
+
+                    <div class="row col-5">
+                        <label for="update_email" class="form-label">email</label>
+                        <input type="text" class="form-control" name="Email" id="update_email" placeholder="email">
+                    </div>
+
+                    <div class="row col-5">
+                        <label for="update_university_id" class="form-label">university</label>
+                        <select class="form-select" id="update_university_id">
+                            <!-- filled by backend-->
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" onclick="updateStudent()" data-dismiss="modal">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Insert Modal -->
 <div class="modal fade" id="modalStudentsInsert" tabindex="-1" role="dialog" aria-labelledby="modalStudentsInsertLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document" >
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalStudentsInsertLabel">Create Student</h5>
@@ -131,47 +173,43 @@
             <div class="modal-body">
                 <div class="container">
                     <div class="row col-5">
-                        <label for="name" class="form-label">name</label>
+                        <label for="create_name" class="form-label">name</label>
                         <input type="text" class="form-control" name="Name" id="create_name" placeholder="name">
                     </div>
 
                     <div class="row col-5">
-                        <label for="surname" class="form-label">surname</label>
+                        <label for="create_surname" class="form-label">surname</label>
                         <input type="text" class="form-control" name="Surname" id="create_surname" placeholder="surname">
                     </div>
 
                     <div class="row col-5">
-                        <label for="age" class="form-label">age</label>
+                        <label for="create_age" class="form-label">age</label>
                         <input type="text" class="form-control" name="Age" id="create_age" placeholder="age">
                     </div>
 
                     <div class="row col-5">
-                        <label for="Email" class="form-label">email</label>
+                        <label for="create_email" class="form-label">email</label>
                         <input type="text" class="form-control" name="Email" id="create_email" placeholder="email">
-                    </div>
-                    <div class="row col-5">
-                        <label for="Password" class="form-label">password</label>
-                        <input type="text" class="form-control" name="Password" id="create_password" placeholder="password">
                     </div>
 
                     <div class="row col-5">
-                        <label for="university_id" class="form-label">university</label>
+                        <label for="create_university_id" class="form-label">university</label>
                         <select class="form-select" id="create_university_id">
-                           <!-- filled by backend-->
+                            <!-- filled by backend-->
                         </select>
                     </div>
                 </div>
-
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-danger" onclick="insertStudent()" data-dismiss="modal">Save</button>
             </div>
-
         </div>
     </div>
 </div>
-</body>
+
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+</body>
 </html>

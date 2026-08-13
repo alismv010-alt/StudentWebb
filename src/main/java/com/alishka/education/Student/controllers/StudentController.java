@@ -30,7 +30,12 @@ public class StudentController {
 
     @PostMapping
     public void save (@RequestBody Student student) {
-                datarepo.save(student);
+        datarepo.save(student);
+    }
+
+    @PutMapping
+    public void update (@RequestBody Student student) {
+        datarepo.save(student);
     }
 
     @DeleteMapping
