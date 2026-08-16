@@ -1,7 +1,5 @@
 package com.alishka.education.Student.entity;
 
-import com.alishka.education.StudentProjection;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity(name="MyStudent")
@@ -18,11 +16,67 @@ public class Student {
     @ManyToOne(fetch=FetchType.EAGER, optional = false )
     private University University;
 
+    @ManyToOne(fetch=FetchType.EAGER, optional = false )
+    private Scholarship Scholarship;
+
     private String Password;
 
     private Integer Age;
 
     private String Email;
+
+    private String Major;
+
+    private String Faculty;
+
+    private Integer GPA;
+
+    private String Timeframe;
+
+    public Scholarship getScholarship() {
+        return Scholarship;
+    }
+
+    public Student setScholarship(Scholarship scholarship) {
+        Scholarship = scholarship;
+        return this;
+    }
+
+    public String getMajor() {
+        return Major;
+    }
+
+    public Student setMajor(String major) {
+        Major = major;
+        return this;
+    }
+
+    public String getFaculty() {
+        return Faculty;
+    }
+
+    public Student setFaculty(String faculty) {
+        Faculty = faculty;
+        return this;
+    }
+
+    public Integer getGPA() {
+        return GPA;
+    }
+
+    public Student setGPA(Integer GPA) {
+        this.GPA = GPA;
+        return this;
+    }
+
+    public String getTimeframe() {
+        return Timeframe;
+    }
+
+    public Student setTimeframe(String timeframe) {
+        Timeframe = timeframe;
+        return this;
+    }
 
     public String getName() {
         return Name;

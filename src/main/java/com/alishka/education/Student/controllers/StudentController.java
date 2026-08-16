@@ -42,4 +42,9 @@ public class StudentController {
     public void delete (@RequestParam Integer id) {
         datarepo.deleteById(id);
     }
+
+    @GetMapping("/{id}")
+    public Student getStudentByID(@PathVariable Integer id) {
+        return datarepo.findById(id).orElse(null);
+    }
 }

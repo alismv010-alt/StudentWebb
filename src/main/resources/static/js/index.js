@@ -133,5 +133,8 @@ function updateStudent() {
     xhttp.send(JSON.stringify(student));
 
 }
+function goToDetails(id) {
+    window.location.href = `student-details.html?id=${id}`;
+}
 window.addEventListener('load', getStudents);
 window.addEventListener('load', getUniverseties);
