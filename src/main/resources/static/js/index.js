@@ -67,6 +67,25 @@ function getUniverseties() {
     xhttp.send();
 
 }
+function getScholarships() {
+    const xhttp = new XMLHttpRequest();
+
+    function myfunction() {
+        var responseArr = JSON.parse(this.responseText);
+
+        var optionsHtml = '<option value "" selected></option>'
+        for (var i = 0; i < responseArr.length; i++) {
+            var scholarship = responseArr[i];
+            optionsHtml += `<option value="${scholarship.id}">${scholarship.name} /${scholarship.amount} AZN</option>`
+        }
+        document.getElementById("create_scholarship_id").innerHTML = optionsHtml;
+        document.getElementById("update_scholarship_id").innerHTML = optionsHtml;
+    }
+    xhttp.onload = myfunction;
+    xhttp.open("GET", "http://localhost:9090/education/scholarships", true);
+    xhttp.send();
+
+}
 function deleteStudent(id) {
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
@@ -86,6 +105,11 @@ function selectForUpdate(index) {
     document.getElementById("update_age").value = selectedstudent.Age
     document.getElementById("update_email").value = selectedstudent.Email
     document.getElementById("update_university_id").value = selectedstudent.University.id
+    document.getElementById("update_faculty").value = selectedstudent.Faculty
+    document.getElementById("update_major").value = selectedstudent.Major
+    document.getElementById("update_GPA").value = selectedstudent.GPA
+    document.getElementById("update_scholarship_id").value = selectedstudent.Scholarship.id
+    document.getElementById("update_timeframe").value = selectedstudent.Timeframe
 }
 function insertStudent() {
     const xhttp = new XMLHttpRequest();
@@ -102,7 +126,14 @@ function insertStudent() {
         Email: document.getElementById("create_email").value,
         University: {
             id:document.getElementById("create_university_id").value
-        }
+        },
+        Faculty: document.getElementById("create_faculty").value,
+        Major: document.getElementById("create_major").value,
+        GPA: document.getElementById("create_GPA").value,
+        Scholarship: {
+            id:document.getElementById("create_scholarship_id").value,
+        },
+        Timeframe: document.getElementById("create_timeframe").value
     };
     xhttp.open("POST", "http://localhost:9090/education/students", true);
     xhttp.setRequestHeader("Content-Type", "application/json")
@@ -126,7 +157,14 @@ function updateStudent() {
         Email: document.getElementById("update_email").value,
         University: {
             id:document.getElementById("update_university_id").value
-        }
+        },
+        Faculty: document.getElementById("update_faculty").value,
+        Major: document.getElementById("update_major").value,
+        GPA: document.getElementById("update_GPA").value,
+        Scholarship: {
+            id:document.getElementById("update_scholarship_id").value,
+        },
+        Timeframe: document.getElementById("update_timeframe").value
     };
     xhttp.open("PUT", "http://localhost:9090/education/students", true);
     xhttp.setRequestHeader("Content-Type", "application/json")
@@ -138,3 +176,4 @@ function goToDetails(id) {
 }
 window.addEventListener('load', getStudents);
 window.addEventListener('load', getUniverseties);
+window.addEventListener('load', getScholarships);

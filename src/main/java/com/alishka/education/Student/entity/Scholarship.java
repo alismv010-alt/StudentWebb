@@ -15,7 +15,6 @@ public class Scholarship {
     Integer amount;
 
     @OneToMany (mappedBy = "Scholarship", targetEntity = Student.class, cascade = CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval = true)
-    @JsonIgnore
     private List<Student> students;
 
     public Integer getId() {
